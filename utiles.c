@@ -2,26 +2,38 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <dirent.h>
 #include "ft_ssl.h"
 #include "libft.h"
-#include "get_next_line.h"
+
+int			ft_isfile(char *name)
+{
+	DIR *directory;
+
+	directory = opendir(name);
+	if (directory != NULL)
+	{
+		closedir(directory);
+		return (0);
+	}
+	return (1);
+}
 
 char	*read_fd(int fd)
 {
-	char	*line;
+	int		err;
+	char	*buff;
 	char	*ret;
 
-	line = NULL;
 	ret = NULL;
-	while (get_next_line(fd, &line) > 0) // Remove empty line
+	buff = ft_strnew(4096);
+	while ((err = read(fd, buff, 4096)) > 0)
 	{
 		if (ret == NULL)
-			ret = ft_strdup(line);
+			ret = ft_strdup(buff);
 		else
-			ft_strproperjoin(&ret, &line);
+			ft_strproperjoin(&ret, &buff);
 	}
-	if (line != NULL)
-		ft_strproperjoin(&ret, &line);
 	return (ret);
 }
 
@@ -30,8 +42,16 @@ char	*read_file(char	*filename)
 	int		fd;
 	char	*ret;
 
-	if ((fd = open(filename, O_RDONLY)) < 0)
+	if (!ft_isfile(filename))
+	{
+		printf("%s %s: Is a directory\n", NAME, filename);
 		return (NULL);
+	}
+	if ((fd = open(filename, O_RDONLY)) < 0)
+	{
+		printf("%s %s: no such file or directory\n", NAME, filename);
+		return (NULL);
+	}
 	ret = read_fd(fd);
 	close(fd);
 	return (ret);

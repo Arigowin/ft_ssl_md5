@@ -7,7 +7,8 @@
 # include <stdbool.h>
 # include <stdint.h>
 
-# define NAME "ft_ssl: md5:"
+// # define NAME "ft_ssl: md5:"
+# define NAME "md5sum:"
 # define INIT_A 0x67452301
 # define INIT_B 0xefcdab89
 # define INIT_C 0x98badcfe
@@ -39,15 +40,13 @@ typedef struct			s_md5_parts
 typedef struct			s_md5
 {
 	t_md5_opt			opt;
-	int					initial_len;
-	char				*initial_message;
-	char				*filename;
-	// int					digest_len;
+	int					index_file;
+	char				**av;
 	t_md5_parts			parts;
 }						t_md5;
 
 int				ft_md5(int ac, char **av);
-void			ft_md5_body(t_md5 *md5);
+void			ft_md5_body(t_md5 *md5, char *msg);
 void			ft_md5_print_hash(t_md5 *md5);
 
 #endif

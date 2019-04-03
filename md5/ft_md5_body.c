@@ -1,21 +1,23 @@
 #include "libft.h"
 #include "ft_md5.h"
 
-int				padding_msg(t_md5 *md5, uint8_t **msg)
+int				padding_msg(char *imsg, uint8_t **msg)
 {
 	int			new_len;
 	uint32_t	bits_len;
+	int			ilen;
 
-	new_len = md5->initial_len * 8 + 1;
-	while (new_len % 512 < 448)
+	ilen = ft_strlen(imsg);
+	new_len = ilen * 8 + 1;
+	while (new_len % 512 != 448)
 		new_len++;
 	new_len /= 8;
 	if ((*msg = (uint8_t *)malloc(new_len + 64)) == NULL)
 		return (-1);
 	ft_bzero(*msg, new_len + 64);
-	ft_memcpy(*msg, md5->initial_message, md5->initial_len);
-	(*msg)[md5->initial_len] = 128;
-	bits_len = 8 * md5->initial_len;
+	ft_memcpy(*msg, imsg, ilen);
+	(*msg)[ilen] = 128;
+	bits_len = 8 * ilen;
 	ft_memcpy(*msg + new_len, &bits_len, 4);
 	return (new_len);
 }
@@ -59,7 +61,7 @@ void			md5_algo(t_md5 *md5, uint32_t *w)
 	md5->parts.d += parts[3];
 }
 
-void			ft_md5_body(t_md5 *md5)
+void			ft_md5_body(t_md5 *md5, char *imsg)
 {
 	int			new_len;
 	int			block;
@@ -67,14 +69,14 @@ void			ft_md5_body(t_md5 *md5)
 	uint32_t	*w;
 
 	msg = NULL;
-	if ((new_len = padding_msg(md5, &msg)) == -1)
+	if ((new_len = padding_msg(imsg, &msg)) == -1)
 		return ; // ERROR
 	block = 0;
 	while (block < new_len)
 	{
 		w = (uint32_t *)(msg + block);
 		md5_algo(md5, w);
-		block += 512 / 8;
+		block += (512 / 8);
 	}
 	free(msg);
 }
