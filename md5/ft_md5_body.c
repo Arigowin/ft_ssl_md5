@@ -1,7 +1,8 @@
+#include <stdlib.h>
 #include "libft.h"
 #include "ft_md5.h"
 
-int				padding_msg(char *imsg, uint8_t **msg)
+int				md5_padding(char *imsg, uint8_t **msg)
 {
 	int			new_len;
 	uint32_t	bits_len;
@@ -16,7 +17,7 @@ int				padding_msg(char *imsg, uint8_t **msg)
 		return (-1);
 	ft_bzero(*msg, new_len + 64);
 	ft_memcpy(*msg, imsg, ilen);
-	(*msg)[ilen] = 128;
+	(*msg)[ilen] = 0x80;
 	bits_len = 8 * ilen;
 	ft_memcpy(*msg + new_len, &bits_len, 4);
 	return (new_len);
@@ -33,7 +34,7 @@ void			md5_swap(uint32_t *parts, uint32_t x)
 	parts[0] = tmp;
 }
 
-void			md5_algo(t_md5 *md5, uint32_t *w)
+void			md5_algo(t_md5sha *md5, uint32_t *w)
 {
 	uint32_t	parts[4];
 	uint32_t	f;
@@ -53,7 +54,7 @@ void			md5_algo(t_md5 *md5, uint32_t *w)
 						: (parts[2] ^ (parts[1] | ~parts[3])))));
 		g = (i < 16 ? i : (i < 32 ? (5 * i + 1) % 16
 					: (i < 48 ? (3 * i + 5) % 16 : (7 * i) % 16)));
-		md5_swap(parts, LEFTROTATE((parts[0] + f + g_k[i] + w[g]), g_s[i]));
+		md5_swap(parts, LR((parts[0] + f + get_md5_k(i) + w[g]), get_md5_s(i)));
 	}
 	md5->parts.a += parts[0];
 	md5->parts.b += parts[1];
@@ -61,7 +62,7 @@ void			md5_algo(t_md5 *md5, uint32_t *w)
 	md5->parts.d += parts[3];
 }
 
-void			ft_md5_body(t_md5 *md5, char *imsg)
+void			ft_md5_body(t_md5sha *md5, char *imsg)
 {
 	int			new_len;
 	int			block;
@@ -69,7 +70,7 @@ void			ft_md5_body(t_md5 *md5, char *imsg)
 	uint32_t	*w;
 
 	msg = NULL;
-	if ((new_len = padding_msg(imsg, &msg)) == -1)
+	if ((new_len = md5_padding(imsg, &msg)) == -1)
 		return ; // ERROR
 	block = 0;
 	while (block < new_len)

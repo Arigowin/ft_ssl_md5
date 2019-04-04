@@ -1,5 +1,6 @@
 #include "ft_ssl.h"
 #include "ft_md5.h"
+#include "ft_sha256.h"
 #include "libft.h"
 #include "get_next_line.h"
 
@@ -21,6 +22,8 @@ int main(int ac, char **av)
 	}
 	if (ft_strcmp(av[1], "md5") == 0)
 		ft_md5(ac, av);
+	else if (ft_strcmp(av[1], "sha256") == 0)
+		ft_sha256(ac, av);
 	else
 		usage(av[1]);
 	return (0);

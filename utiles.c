@@ -6,6 +6,19 @@
 #include "ft_ssl.h"
 #include "libft.h"
 
+uint32_t			swap_int32(const uint32_t value)
+{
+	uint32_t result;
+
+	result = 0;
+	result |= (value & 0x000000FF) << 24;
+	result |= (value & 0x0000FF00) << 8;
+	result |= (value & 0x00FF0000) >> 8;
+	result |= (value & 0xFF000000) >> 24;
+	return (result);
+}
+
+
 int			ft_isfile(char *name)
 {
 	DIR *directory;
@@ -44,12 +57,12 @@ char	*read_file(char	*filename)
 
 	if (!ft_isfile(filename))
 	{
-		printf("%s %s: Is a directory\n", NAME, filename);
+		printf("ft_ssl: %s: Is a directory\n", filename);
 		return (NULL);
 	}
 	if ((fd = open(filename, O_RDONLY)) < 0)
 	{
-		printf("%s %s: no such file or directory\n", NAME, filename);
+		printf("ft_ssl: %s: no such file or directory\n", filename);
 		return (NULL);
 	}
 	ret = read_fd(fd);

@@ -1,6 +1,6 @@
 #include "ft_md5.h"
 
-void			ft_md5_print_hash(t_md5 *md5)
+void			ft_md5_print_hash(t_md5sha *md5)
 {
 	uint8_t		*ptr;
 
