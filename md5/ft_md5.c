@@ -20,7 +20,8 @@ char			*md5_opt(t_md5sha *md5, int ac, char **av)
 		else if (!md5->opt.file && ft_strcmp(av[i], "-s") == 0)
 		{
 			md5->opt.string = true;
-			tmp = ft_strdup(av[++i]);
+			if ((tmp = ft_strdup(av[++i])) == NULL)
+				return (NULL);
 		}
 		else
 		{
@@ -77,7 +78,11 @@ int				ft_md5(int ac, char **av)
 	char		*tmp;
 
 	md5_init(&md5);
-	msg = md5_opt(&md5, ac, av);
+	if ((msg = md5_opt(&md5, ac, av)) == NULL)
+	{
+		printf("ft_ssl: md5: An error occured when handle option\n");
+		return (-1);
+	}
 	if ((!md5.opt.string && !md5.opt.file) || md5.opt.in)
 	{
 		tmp = read_fd(0);
@@ -98,5 +103,5 @@ int				ft_md5(int ac, char **av)
 			md5.index_file++;
 		}
 	}
-	return (0);
+	return (1);
 }

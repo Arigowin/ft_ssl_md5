@@ -112,11 +112,18 @@ void			ft_sha256_body(t_md5sha *sha256, char *imsg)
 
 	msg = NULL;
 	w = NULL;
-	new_len = sha256_padding(imsg, &msg);
+	if ((new_len = sha256_padding(imsg, &msg)) == 0)
+	{
+		printf("ft_ssl: sha256: An error occured\n");
+		return ;
+	}
 	block = 0;
 	while (block < (new_len / 64))
 	{
-		w = get_w(msg, block);
+		if ((w = get_w(msg, block)) == NULL)
+		{
+			printf("ft_ssl: sha256: Allocation failes\n");
+		}
 		sha256_algo(sha256, w);
 		block++;
 	}

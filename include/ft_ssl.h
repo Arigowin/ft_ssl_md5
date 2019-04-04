@@ -5,8 +5,6 @@
 
 # include <stdbool.h>
 # include <stdint.h>
-// # include "ft_md5.h"
-// # include "ft_sha256.h"
 
 # define LR(x, c) ((x << c) | (x >> (32 - c)))
 # define RR(x, c) ((x >> c) | (x << (32 - c)))

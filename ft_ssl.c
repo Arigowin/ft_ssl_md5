@@ -20,9 +20,9 @@ int main(int ac, char **av)
 		printf("usage: ft_ssl command [command opts] [command args]\n");
 		return (1);
 	}
-	if (ft_strcmp(av[1], "md5") == 0)
+	if (ft_strcmp(av[1], "md5") == 0 || ft_strcmp(av[1], "MD5") == 0)
 		ft_md5(ac, av);
-	else if (ft_strcmp(av[1], "sha256") == 0)
+	else if (ft_strcmp(av[1], "sha256") == 0 || ft_strcmp(av[1], "SHA256") == 0)
 		ft_sha256(ac, av);
 	else
 		usage(av[1]);

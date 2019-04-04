@@ -3,7 +3,6 @@
 
 # include "ft_ssl.h"
 
-// # define NAME "ft_ssl: md5:"
 # define INIT_MD5_A 0x67452301
 # define INIT_MD5_B 0xefcdab89
 # define INIT_MD5_C 0x98badcfe

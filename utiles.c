@@ -39,7 +39,8 @@ char	*read_fd(int fd)
 	char	*ret;
 
 	ret = NULL;
-	buff = ft_strnew(4096);
+	if ((buff = ft_strnew(4096)) == NULL)
+		return (NULL);
 	while ((err = read(fd, buff, 4096)) > 0)
 	{
 		if (ret == NULL)

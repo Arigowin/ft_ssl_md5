@@ -71,7 +71,10 @@ void			ft_md5_body(t_md5sha *md5, char *imsg)
 
 	msg = NULL;
 	if ((new_len = md5_padding(imsg, &msg)) == -1)
-		return ; // ERROR
+	{
+		printf("ft_ssl: md5: Allocation failed\n");
+		return ;
+	}
 	block = 0;
 	while (block < new_len)
 	{
