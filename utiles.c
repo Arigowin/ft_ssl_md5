@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -34,21 +35,26 @@ int			ft_isfile(char *name)
 
 char	*read_fd(int fd, t_file *file)
 {
-	int		err;
+	int		rd;
 	char	*buff;
+	char	*cpy;
 
-	file->content = NULL;
-	if ((buff = ft_strnew(4096 + 1)) == NULL)
-		return (NULL);
+	rd = 0;
 	file->len = 0;
-	while ((err = read(fd, buff, 4096)) > 0)
+	file->content = ft_memalloc(1);
+	buff = malloc(4096 + 1);
+	while ((rd = read(fd, buff, 4096)) > 0)
 	{
-		if (file->content == NULL)
-			file->content = ft_strdup(buff);
-		else
-			ft_strproperjoin(&file->content, &buff);
-		file->len += err;
+		cpy = malloc(file->len + rd + 1);
+		ft_memcpy(cpy, file->content, file->len);
+		ft_memcpy(cpy + file->len, buff, rd);
+		cpy[file->len + rd] = '\0';
+		file->len += rd;
+		free(file->content);
+		file->content = cpy;
 	}
+	free(buff);
+	(!file->len) && (*file->content = '\0');
 	return (file->content);
 }
 
