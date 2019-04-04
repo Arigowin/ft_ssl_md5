@@ -23,31 +23,27 @@ int			add_padlen(uint32_t *buff, int ilen)
 	return (num_blocks * 64);
 }
 
-int				sha256_padding(char *imsg, uint8_t **msg)
+int				sha256_padding(uint32_t **msg, char *imsg, size_t ilen)
 {
 	uint32_t	new_len;
-	int			ilen;
 
-	ilen = ft_strlen(imsg);
 	new_len = ilen + 9;
 	while ((new_len * 8) % 512)
 		new_len++;
-	if ((*msg = (uint8_t *)malloc(new_len)) == NULL)
+	if ((*msg = (uint32_t *)ft_memalloc(new_len)) == NULL)
 		return (-1);
-	ft_bzero(*msg, new_len);
 	ft_memcpy(*msg, imsg, ilen);
 	new_len = add_padlen((uint32_t *)(*msg), ilen);
 	return (new_len);
 }
 
-uint32_t		*get_w(uint8_t *msg, int block)
+uint32_t		*get_w(uint32_t *msg, int block)
 {
 	uint32_t	*w;
 	int			i;
 
-	if ((w = (uint32_t *)malloc(64 * sizeof(uint32_t))) == NULL)
+	if ((w = (uint32_t *)ft_memalloc(64 * sizeof(uint32_t))) == NULL)
 		return (0);
-	bzero(w, 64 * sizeof(uint32_t));
 	ft_memcpy(w, msg + block * 16, 16 * sizeof(uint32_t));
 	i = 15;
 	while (++i < 64)
@@ -103,16 +99,16 @@ void			sha256_algo(t_md5sha *sha256, uint32_t *w)
 	sha256->parts.h += parts[7];
 }
 
-void			ft_sha256_body(t_md5sha *sha256, char *imsg)
+void			ft_sha256_body(t_md5sha *sha256, char *imsg, size_t ilen)
 {
 	uint32_t	new_len;
 	uint32_t	block;
-	uint8_t		*msg;
+	uint32_t	*msg;
 	uint32_t	*w;
 
 	msg = NULL;
 	w = NULL;
-	if ((new_len = sha256_padding(imsg, &msg)) == 0)
+	if ((new_len = sha256_padding(&msg, imsg, ilen)) == 0)
 	{
 		printf("ft_ssl: sha256: An error occured\n");
 		return ;

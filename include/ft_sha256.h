@@ -15,7 +15,7 @@
 uint32_t		get_sha256_k(int i);
 
 int				ft_sha256(int ac, char **av);
-void			ft_sha256_body(t_md5sha *sha256, char *imsg);
+void			ft_sha256_body(t_md5sha *sha256, char *imsg, size_t ilen);
 void			ft_sha256_print_hash(t_md5sha *sha256);
 
 #endif

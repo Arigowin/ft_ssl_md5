@@ -54,7 +54,7 @@ void			sha256_init(t_md5sha *sha256)
 	sha256_reset_parts(sha256);
 }
 
-void			sha256_exec(t_md5sha *sha256, char *msg, bool file)
+void			sha256_exec(t_md5sha *sha256, char *msg, size_t len, bool file)
 {
 	if (msg == NULL)
 		return ;
@@ -62,7 +62,7 @@ void			sha256_exec(t_md5sha *sha256, char *msg, bool file)
 		printf("SHA256 (%s) = ", sha256->av[sha256->index_file]);
 	if (sha256->opt.reverse == false && sha256->opt.quiet == false && !file)
 		printf("SHA256 (\"%s\") = ", msg);
-	ft_sha256_body(sha256, msg);
+	ft_sha256_body(sha256, msg, len);
 	ft_sha256_print_hash(sha256);
 	if (sha256->opt.reverse && sha256->opt.quiet == false && file)
 		printf("  %s", sha256->av[sha256->index_file]);
@@ -75,29 +75,30 @@ void			sha256_exec(t_md5sha *sha256, char *msg, bool file)
 
 int			ft_sha256(int ac, char **av)
 {
-	t_md5sha sha256;
-	char	*msg;
-	char	*tmp;
+	t_md5sha	sha256;
+	t_file		file;
+	char		*msg;
 
 	sha256_init(&sha256);
 	msg = sha256_opt(&sha256, ac, av);
 	if ((!sha256.opt.string && !sha256.opt.file) || sha256.opt.in)
 	{
-		tmp = read_fd(0);
+		read_fd(0, &file);
 		if (sha256.opt.in)
-			printf("%s", tmp);
-		ft_sha256_body(&sha256, tmp);
+			printf("%s", file.content);
+		ft_sha256_body(&sha256, file.content, file.len);
 		ft_sha256_print_hash(&sha256);
 		printf("\n");
 		sha256_reset_parts(&sha256);
 	}
 	if (sha256.opt.string)
-		sha256_exec(&sha256, msg, false);
+		sha256_exec(&sha256, msg, ft_strlen(msg), false);
 	if (sha256.opt.file)
 	{
 		while (sha256.index_file < ac)
 		{
-			sha256_exec(&sha256, read_file(sha256.av[sha256.index_file]), true);
+			read_file(sha256.av[sha256.index_file], &file);
+			sha256_exec(&sha256, file.content, file.len, true);
 			sha256.index_file++;
 		}
 	}

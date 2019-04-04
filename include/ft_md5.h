@@ -12,7 +12,7 @@ int				get_md5_s(int i);
 int				get_md5_k(int i);
 
 int				ft_md5(int ac, char **av);
-void			ft_md5_body(t_md5sha *md5, char *imsg);
+void			ft_md5_body(t_md5sha *md5, char *imsg, size_t ilen);
 void			ft_md5_print_hash(t_md5sha *md5);
 
 #endif

@@ -2,20 +2,17 @@
 #include "libft.h"
 #include "ft_md5.h"
 
-int				md5_padding(char *imsg, uint8_t **msg)
+int				md5_padding(uint8_t **msg, char *imsg, size_t ilen)
 {
 	int			new_len;
 	uint32_t	bits_len;
-	int			ilen;
 
-	ilen = ft_strlen(imsg);
 	new_len = ilen * 8 + 1;
 	while (new_len % 512 != 448)
 		new_len++;
 	new_len /= 8;
-	if ((*msg = (uint8_t *)malloc(new_len + 64)) == NULL)
+	if ((*msg = (uint8_t *)ft_memalloc(new_len + 64)) == NULL)
 		return (-1);
-	ft_bzero(*msg, new_len + 64);
 	ft_memcpy(*msg, imsg, ilen);
 	(*msg)[ilen] = 0x80;
 	bits_len = 8 * ilen;
@@ -62,7 +59,7 @@ void			md5_algo(t_md5sha *md5, uint32_t *w)
 	md5->parts.d += parts[3];
 }
 
-void			ft_md5_body(t_md5sha *md5, char *imsg)
+void			ft_md5_body(t_md5sha *md5, char *imsg, size_t ilen)
 {
 	int			new_len;
 	int			block;
@@ -70,7 +67,7 @@ void			ft_md5_body(t_md5sha *md5, char *imsg)
 	uint32_t	*w;
 
 	msg = NULL;
-	if ((new_len = md5_padding(imsg, &msg)) == -1)
+	if ((new_len = md5_padding(&msg, imsg, ilen)) == -1)
 	{
 		printf("ft_ssl: md5: Allocation failed\n");
 		return ;

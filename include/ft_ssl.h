@@ -38,8 +38,14 @@ typedef struct			s_md5sha
 	char				**av;
 }						t_md5sha;
 
+typedef struct			s_file
+{
+	char				*content;
+	size_t				len;
+}						t_file;
+
 uint32_t	swap_int32(const uint32_t value);
-char		*read_fd(int fd);
-char		*read_file(char	*filename);
+char		*read_fd(int fd, t_file *file);
+char		*read_file(char	*filename, t_file *file);
 
 #endif

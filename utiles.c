@@ -32,26 +32,27 @@ int			ft_isfile(char *name)
 	return (1);
 }
 
-char	*read_fd(int fd)
+char	*read_fd(int fd, t_file *file)
 {
 	int		err;
 	char	*buff;
-	char	*ret;
 
-	ret = NULL;
-	if ((buff = ft_strnew(4096)) == NULL)
+	file->content = NULL;
+	if ((buff = ft_strnew(4096 + 1)) == NULL)
 		return (NULL);
+	file->len = 0;
 	while ((err = read(fd, buff, 4096)) > 0)
 	{
-		if (ret == NULL)
-			ret = ft_strdup(buff);
+		if (file->content == NULL)
+			file->content = ft_strdup(buff);
 		else
-			ft_strproperjoin(&ret, &buff);
+			ft_strproperjoin(&file->content, &buff);
+		file->len += err;
 	}
-	return (ret);
+	return (file->content);
 }
 
-char	*read_file(char	*filename)
+char	*read_file(char	*filename, t_file *file)
 {
 	int		fd;
 	char	*ret;
@@ -66,7 +67,7 @@ char	*read_file(char	*filename)
 		printf("ft_ssl: %s: no such file or directory\n", filename);
 		return (NULL);
 	}
-	ret = read_fd(fd);
+	ret = read_fd(fd, file);
 	close(fd);
 	return (ret);
 }
