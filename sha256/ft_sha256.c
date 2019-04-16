@@ -10,13 +10,13 @@ char			*sha256_opt(t_md5sha *sha256, int ac, char **av)
 	tmp = NULL;
 	while (++i < ac)
 	{
-		if (!sha256->opt.file && ft_strcmp(av[i], "-p") == 0)
+		if (!sha256->opt.file && ft_strequ(av[i], "-p"))
 			sha256->opt.in = true;
-		else if (!sha256->opt.file && ft_strcmp(av[i], "-q") == 0)
+		else if (!sha256->opt.file && ft_strequ(av[i], "-q"))
 			sha256->opt.quiet = true;
-		else if (!sha256->opt.file && ft_strcmp(av[i], "-r") == 0)
+		else if (!sha256->opt.file && ft_strequ(av[i], "-r"))
 			sha256->opt.reverse = true;
-		else if (!sha256->opt.file && ft_strcmp(av[i], "-s") == 0)
+		else if (!sha256->opt.file && ft_strequ(av[i], "-s"))
 		{
 			sha256->opt.string = true;
 			tmp = ft_strdup(av[++i]);

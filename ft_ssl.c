@@ -15,17 +15,23 @@ void		usage(char *str)
 
 int main(int ac, char **av)
 {
+	char		*authorized_cmd[2] = {"MD5", "SHA256"};
+	int			(*fct[2])(int, char **) = {ft_md5, ft_sha256,};
+	int			i;
+
 	if (ac < 2)
 	{
 		printf("usage: ft_ssl command [command opts] [command args]\n");
 		return (1);
 	}
-	if (ft_strcmp(av[1], "md5") == 0 || ft_strcmp(av[1], "MD5") == 0)
-		ft_md5(ac, av);
-	else if (ft_strcmp(av[1], "sha256") == 0 || ft_strcmp(av[1], "SHA256") == 0)
-		ft_sha256(ac, av);
-	else
-		usage(av[1]);
-	return (0);
+	i = 0;
+	while (i < 3)
+	{
+		if (ft_strequ(str_toupper(av[1]), authorized_cmd[i]))
+			return (fct[i](ac, av));
+		i++;
+	}
+	usage(av[1]);
+	return (1);
 }
 

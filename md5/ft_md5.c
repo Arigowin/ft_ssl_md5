@@ -11,13 +11,13 @@ char			*md5_opt(t_md5sha *md5, int ac, char **av)
 	tmp = NULL;
 	while (++i < ac)
 	{
-		if (!md5->opt.file && ft_strcmp(av[i], "-p") == 0)
+		if (!md5->opt.file && ft_strequ(av[i], "-p"))
 			md5->opt.in = true;
-		else if (!md5->opt.file && ft_strcmp(av[i], "-q") == 0)
+		else if (!md5->opt.file && ft_strequ(av[i], "-q"))
 			md5->opt.quiet = true;
-		else if (!md5->opt.file && ft_strcmp(av[i], "-r") == 0)
+		else if (!md5->opt.file && ft_strequ(av[i], "-r"))
 			md5->opt.reverse = true;
-		else if (!md5->opt.file && ft_strcmp(av[i], "-s") == 0)
+		else if (!md5->opt.file && ft_strequ(av[i], "-s"))
 		{
 			md5->opt.string = true;
 			tmp = ft_strdup(av[++i]);
