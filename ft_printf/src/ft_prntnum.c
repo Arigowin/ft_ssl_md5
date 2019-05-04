@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_toupper.c                                      :+:      :+:    :+:   */
+/*   ft_prntnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dolewski <dolewski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 17:06:57 by dolewski          #+#    #+#             */
-/*   Updated: 2019/05/04 17:06:59 by dolewski         ###   ########.fr       */
+/*   Created: 2019/05/04 17:05:55 by dolewski          #+#    #+#             */
+/*   Updated: 2019/05/04 17:05:55 by dolewski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char				*str_toupper(char *str)
+void		ft_prntnum(unsigned long num, int base, char sign, char *outbuf)
 {
-	char				*ret;
-	int					i;
+	int		i;
+	int		j;
 
-	ret = ft_strnew(ft_strlen(str));
-	i = 0;
-	while (str[i])
+	i = 29;
+	j = 0;
+	while ((num > 0 || i == 29))
 	{
-		ret[i] = ft_toupper(str[i]);
-		i++;
+		outbuf[i] = "0123456789abcdef"[num % base];
+		i--;
+		num = num / base;
 	}
-	return (ret);
+	if (sign != ' ')
+	{
+		outbuf[0] = sign;
+		++j;
+	}
+	while (++i < 30)
+		outbuf[j++] = outbuf[i];
+	outbuf[j] = 0;
 }

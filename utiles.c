@@ -6,6 +6,7 @@
 #include <dirent.h>
 #include "ft_ssl.h"
 #include "libft.h"
+#include "ft_printf.h"
 
 uint32_t			swap_int32(const uint32_t value)
 {
@@ -65,12 +66,12 @@ char	*read_file(char	*filename, t_file *file)
 
 	if (!ft_isfile(filename))
 	{
-		printf("ft_ssl: %s: Is a directory\n", filename);
+		ft_printf("ft_ssl: %s: Is a directory\n", filename);
 		return (NULL);
 	}
 	if ((fd = open(filename, O_RDONLY)) < 0)
 	{
-		printf("ft_ssl: %s: no such file or directory\n", filename);
+		ft_printf("ft_ssl: %s: no such file or directory\n", filename);
 		return (NULL);
 	}
 	ret = read_fd(fd, file);

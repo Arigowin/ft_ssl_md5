@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_toupper.c                                      :+:      :+:    :+:   */
+/*   ft_ptr_to_hex.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dolewski <dolewski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 17:06:57 by dolewski          #+#    #+#             */
-/*   Updated: 2019/05/04 17:06:59 by dolewski         ###   ########.fr       */
+/*   Created: 2019/05/04 17:05:55 by dolewski          #+#    #+#             */
+/*   Updated: 2019/05/04 17:05:55 by dolewski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char				*str_toupper(char *str)
+void		ft_ptr_to_hex(const void *ptr, char (*res)[16])
 {
-	char				*ret;
-	int					i;
+	char	alpha[16];
+	size_t	addr;
+	int		i;
 
-	ret = ft_strnew(ft_strlen(str));
-	i = 0;
-	while (str[i])
-	{
-		ret[i] = ft_toupper(str[i]);
-		i++;
-	}
-	return (ret);
+	ft_memcpy(alpha, "0123456789abcdef", 16);
+	ft_bzero(res, 17);
+	ft_memset(res, '0', 16);
+	i = 15;
+	addr = (size_t)ptr;
+	(*res)[i--] = alpha[addr % 16];
+	while ((addr /= 16) > 0 && i > -1)
+		(*res)[i--] = alpha[addr % 16];
 }

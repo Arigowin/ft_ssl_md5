@@ -1,10 +1,9 @@
 #ifndef FT_SSL_H
 # define FT_SSL_H
 
-#include <stdio.h> // remove
-
 # include <stdbool.h>
 # include <stdint.h>
+#include <string.h>
 
 # define LR(x, c) ((x << c) | (x >> (32 - c)))
 # define RR(x, c) ((x >> c) | (x << (32 - c)))

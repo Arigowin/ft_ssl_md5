@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_toupper.c                                      :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dolewski <dolewski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 17:06:57 by dolewski          #+#    #+#             */
-/*   Updated: 2019/05/04 17:06:59 by dolewski         ###   ########.fr       */
+/*   Created: 2019/05/04 17:05:54 by dolewski          #+#    #+#             */
+/*   Updated: 2019/05/04 17:05:54 by dolewski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <string.h>
 
-char				*str_toupper(char *str)
+void			*ft_memset(void *b, int c, size_t len)
 {
-	char				*ret;
-	int					i;
+	size_t			i;
+	char			*tmp;
 
-	ret = ft_strnew(ft_strlen(str));
 	i = 0;
-	while (str[i])
+	tmp = b;
+	while ((i < len) && (b != NULL))
 	{
-		ret[i] = ft_toupper(str[i]);
+		*tmp = c;
 		i++;
+		tmp++;
 	}
-	return (ret);
+	return (b);
 }

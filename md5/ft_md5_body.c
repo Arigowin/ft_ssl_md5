@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "libft.h"
 #include "ft_md5.h"
+#include "ft_printf.h"
 
 int				md5_padding(uint8_t **msg, char *imsg, size_t ilen)
 {
@@ -69,7 +70,7 @@ void			ft_md5_body(t_md5sha *md5, char *imsg, size_t ilen)
 	msg = NULL;
 	if ((new_len = md5_padding(&msg, imsg, ilen)) == -1)
 	{
-		printf("ft_ssl: md5: Allocation failed\n");
+		ft_printf("ft_ssl: md5: Allocation failed\n");
 		return ;
 	}
 	block = 0;

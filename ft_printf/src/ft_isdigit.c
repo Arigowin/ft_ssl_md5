@@ -1,28 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_toupper.c                                      :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dolewski <dolewski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 17:06:57 by dolewski          #+#    #+#             */
-/*   Updated: 2019/05/04 17:06:59 by dolewski         ###   ########.fr       */
+/*   Created: 2019/05/04 17:05:54 by dolewski          #+#    #+#             */
+/*   Updated: 2019/05/04 17:06:19 by dolewski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-char				*str_toupper(char *str)
+int			ft_isdigit(int c)
 {
-	char				*ret;
-	int					i;
-
-	ret = ft_strnew(ft_strlen(str));
-	i = 0;
-	while (str[i])
-	{
-		ret[i] = ft_toupper(str[i]);
-		i++;
-	}
-	return (ret);
+	return (c >= '0' && c <= '9');
 }

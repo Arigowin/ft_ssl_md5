@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_toupper.c                                      :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dolewski <dolewski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 17:06:57 by dolewski          #+#    #+#             */
-/*   Updated: 2019/05/04 17:06:59 by dolewski         ###   ########.fr       */
+/*   Created: 2019/05/04 17:05:58 by dolewski          #+#    #+#             */
+/*   Updated: 2019/05/04 17:05:58 by dolewski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char				*str_toupper(char *str)
+char			*ft_strstr(const char *s1, const char *s2)
 {
-	char				*ret;
-	int					i;
+	const char	*save_ptr;
+	const char	*save_ptr_2;
 
-	ret = ft_strnew(ft_strlen(str));
-	i = 0;
-	while (str[i])
+	save_ptr_2 = s2;
+	if (*s2 == '\0')
+		return ((char*)s1);
+	while (*s1 != '\0')
 	{
-		ret[i] = ft_toupper(str[i]);
-		i++;
+		save_ptr = s1;
+		while (*save_ptr == *save_ptr_2)
+		{
+			save_ptr++;
+			save_ptr_2++;
+			if (*save_ptr_2 == '\0')
+				return ((char*)s1);
+		}
+		save_ptr_2 = s2;
+		s1++;
 	}
-	return (ret);
+	return (NULL);
 }

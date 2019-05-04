@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "ft_sha256.h"
 #include "libft.h"
+#include "ft_printf.h"
 
 int			add_padlen(uint32_t *buff, int ilen)
 {
@@ -110,7 +111,7 @@ void			ft_sha256_body(t_md5sha *sha256, char *imsg, size_t ilen)
 	w = NULL;
 	if ((new_len = sha256_padding(&msg, imsg, ilen)) == 0)
 	{
-		printf("ft_ssl: sha256: An error occured\n");
+		ft_printf("ft_ssl: sha256: An error occured\n");
 		return ;
 	}
 	block = 0;
@@ -118,7 +119,7 @@ void			ft_sha256_body(t_md5sha *sha256, char *imsg, size_t ilen)
 	{
 		if ((w = get_w(msg, block)) == NULL)
 		{
-			printf("ft_ssl: sha256: Allocation failes\n");
+			ft_printf("ft_ssl: sha256: Allocation failes\n");
 		}
 		sha256_algo(sha256, w);
 		block++;

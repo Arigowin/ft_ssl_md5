@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_toupper.c                                      :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dolewski <dolewski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 17:06:57 by dolewski          #+#    #+#             */
-/*   Updated: 2019/05/04 17:06:59 by dolewski         ###   ########.fr       */
+/*   Created: 2019/05/04 17:05:56 by dolewski          #+#    #+#             */
+/*   Updated: 2019/05/04 17:05:56 by dolewski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char				*str_toupper(char *str)
+static void		ft_putunbr_fd(unsigned int n, int fd)
 {
-	char				*ret;
-	int					i;
+	if (n >= 10)
+		ft_putunbr_fd(n / 10, fd);
+	ft_putchar_fd((n % 10) + '0', fd);
+}
 
-	ret = ft_strnew(ft_strlen(str));
-	i = 0;
-	while (str[i])
+void			ft_putnbr_fd(int n, int fd)
+{
+	if (n < 0)
 	{
-		ret[i] = ft_toupper(str[i]);
-		i++;
+		ft_putchar_fd('-', fd);
+		ft_putunbr_fd(-n, fd);
 	}
-	return (ret);
+	else
+		ft_putunbr_fd(n, fd);
 }

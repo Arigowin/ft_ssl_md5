@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_toupper.c                                      :+:      :+:    :+:   */
+/*   ft_print_n_char.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dolewski <dolewski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 17:06:57 by dolewski          #+#    #+#             */
-/*   Updated: 2019/05/04 17:06:59 by dolewski         ###   ########.fr       */
+/*   Created: 2019/05/04 17:05:54 by dolewski          #+#    #+#             */
+/*   Updated: 2019/05/04 17:05:54 by dolewski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char				*str_toupper(char *str)
+void		ft_print_n_char(char c, int n)
 {
-	char				*ret;
-	int					i;
+	int		i;
 
-	ret = ft_strnew(ft_strlen(str));
 	i = 0;
-	while (str[i])
+	while (i < n)
 	{
-		ret[i] = ft_toupper(str[i]);
+		ft_putchar(c);
 		i++;
 	}
-	return (ret);
 }

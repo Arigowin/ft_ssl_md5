@@ -5,17 +5,19 @@ MKDIR = 	/bin/mkdir
 
 NAME = ft_ssl
 
-ROOT =			$(shell /bin/pwd)
-OPATH =			$(ROOT)/obj
-CPATH =			$(ROOT)/src
-HPATH =			$(ROOT)/include
-LIBPATH =		$(ROOT)/libft
-LIBHPATH =		$(LIBPATH)/includes
-MD5_DIR = 		$(ROOT)/md5
-SHA256_DIR = 	$(ROOT)/sha256
+ROOT =				$(shell /bin/pwd)
+OPATH =				$(ROOT)/obj
+CPATH =				$(ROOT)/src
+HPATH =				$(ROOT)/include
+LIBPATH =			$(ROOT)/libft
+LIBHPATH =			$(LIBPATH)/includes
+LIBPRINTFPATH =		$(ROOT)/ft_printf
+LIBPRINTFHPATH =	$(LIBPRINTFPATH)/include
+MD5_DIR = 			$(ROOT)/md5
+SHA256_DIR = 		$(ROOT)/sha256
 
-CFLAGS = -Wall -Wextra -Werror -I $(HPATH) -I $(LIBHPATH) -g
-LIBS = -L $(LIBPATH) -lft
+CFLAGS = -Wall -Wextra -Werror -I $(HPATH) -I $(LIBHPATH) -I $(LIBPRINTFHPATH) -g
+LIBS = -L $(LIBPATH) -lft -L$(LIBPRINTFPATH) -lftprintf
 
 _DEPS = ft_ssl.h ft_md5.h ft_sha256.h
 DEPS = $(patsubst %,$(HPATH)/%,$(_DEPS))
@@ -39,6 +41,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@$(MAKE) -C $(LIBPATH) -j 8
+	@$(MAKE) -C $(LIBPRINTFPATH) -j 8
 	@echo "Creating OBJ files"
 	@echo "Building $@"
 	@$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
@@ -53,6 +56,7 @@ md5: $(MD5_OBJ)
 
 lib.clean:
 	@$(MAKE) clean -C $(LIBPATH)
+	@$(MAKE) clean -C $(LIBPRINTFPATH)
 
 clean: lib.clean
 	@echo "Deleting OBJ files"
@@ -60,6 +64,7 @@ clean: lib.clean
 
 lib.fclean:
 	@$(MAKE) fclean -C $(LIBPATH)
+	@$(MAKE) fclean -C $(LIBPRINTFPATH)
 
 fclean: clean lib.fclean
 	@echo "Deleting $(NAME)"

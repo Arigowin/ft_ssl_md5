@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_toupper.c                                      :+:      :+:    :+:   */
+/*   conversion_manager.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dolewski <dolewski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 17:06:57 by dolewski          #+#    #+#             */
-/*   Updated: 2019/05/04 17:06:59 by dolewski         ###   ########.fr       */
+/*   Created: 2019/05/04 17:05:52 by dolewski          #+#    #+#             */
+/*   Updated: 2019/05/04 17:05:52 by dolewski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char				*str_toupper(char *str)
+int			conversion_manager(t_lst *lst, va_list ap)
 {
-	char				*ret;
-	int					i;
+	static int		(*fct[12])(t_lst *, va_list) =
+	{no_conv, other_conv, conv_s, conv_d, conv_c, conv_p, conv_o, conv_u,
+		conv_x, conv_x, conv_f, conv_pct};
+	int				len;
 
-	ret = ft_strnew(ft_strlen(str));
-	i = 0;
-	while (str[i])
-	{
-		ret[i] = ft_toupper(str[i]);
-		i++;
-	}
-	return (ret);
+	len = 0;
+	if (lst->type > 11)
+		return (-1);
+	len = fct[lst->type](lst, ap);
+	return (len);
 }

@@ -1,5 +1,6 @@
 #include "ft_sha256.h"
 #include "libft.h"
+#include "ft_printf.h"
 
 void			ft_sha256_print_hash(t_md5sha *sha256)
 {
@@ -21,5 +22,5 @@ void			ft_sha256_print_hash(t_md5sha *sha256)
 	}
 	i = -1;
 	while (++i < 32)
-		printf("%02x", hash[i]);
+		ft_printf("%02x", hash[i]);
 }

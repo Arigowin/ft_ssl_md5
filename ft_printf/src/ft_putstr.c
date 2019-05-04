@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_toupper.c                                      :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dolewski <dolewski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 17:06:57 by dolewski          #+#    #+#             */
-/*   Updated: 2019/05/04 17:06:59 by dolewski         ###   ########.fr       */
+/*   Created: 2019/05/04 17:05:56 by dolewski          #+#    #+#             */
+/*   Updated: 2019/05/04 17:05:56 by dolewski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char				*str_toupper(char *str)
+void	ft_putstr(char const *s)
 {
-	char				*ret;
-	int					i;
+	size_t i;
 
-	ret = ft_strnew(ft_strlen(str));
 	i = 0;
-	while (str[i])
+	while (s && i < ft_strlen(s))
 	{
-		ret[i] = ft_toupper(str[i]);
+		ft_putchar(s[i]);
 		i++;
 	}
-	return (ret);
 }

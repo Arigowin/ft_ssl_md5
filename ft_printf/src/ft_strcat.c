@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_toupper.c                                      :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dolewski <dolewski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 17:06:57 by dolewski          #+#    #+#             */
-/*   Updated: 2019/05/04 17:06:59 by dolewski         ###   ########.fr       */
+/*   Created: 2019/05/04 17:05:57 by dolewski          #+#    #+#             */
+/*   Updated: 2019/05/04 17:06:22 by dolewski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-char				*str_toupper(char *str)
+char		*ft_strcat(char *s1, const char *s2)
 {
-	char				*ret;
-	int					i;
+	char	*save_ptr;
 
-	ret = ft_strnew(ft_strlen(str));
-	i = 0;
-	while (str[i])
+	save_ptr = s1;
+	while (s1 && *s1)
+		s1++;
+	while (s2 && *s2)
 	{
-		ret[i] = ft_toupper(str[i]);
-		i++;
+		*s1 = *s2;
+		s1++;
+		s2++;
 	}
-	return (ret);
+	if (s1)
+		*s1 = '\0';
+	return (save_ptr);
 }

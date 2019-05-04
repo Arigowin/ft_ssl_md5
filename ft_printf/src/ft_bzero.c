@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_toupper.c                                      :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dolewski <dolewski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 17:06:57 by dolewski          #+#    #+#             */
-/*   Updated: 2019/05/04 17:06:59 by dolewski         ###   ########.fr       */
+/*   Created: 2019/05/04 17:05:53 by dolewski          #+#    #+#             */
+/*   Updated: 2019/05/04 17:05:53 by dolewski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char				*str_toupper(char *str)
+void			ft_bzero(void *s, size_t n)
 {
-	char				*ret;
-	int					i;
+	size_t		i;
+	char		*save_ptr;
 
-	ret = ft_strnew(ft_strlen(str));
 	i = 0;
-	while (str[i])
+	save_ptr = s;
+	while (i < n)
 	{
-		ret[i] = ft_toupper(str[i]);
+		*save_ptr = '\0';
 		i++;
+		save_ptr++;
 	}
-	return (ret);
 }

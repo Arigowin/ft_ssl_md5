@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_toupper.c                                      :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dolewski <dolewski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 17:06:57 by dolewski          #+#    #+#             */
-/*   Updated: 2019/05/04 17:06:59 by dolewski         ###   ########.fr       */
+/*   Created: 2019/05/04 17:05:57 by dolewski          #+#    #+#             */
+/*   Updated: 2019/05/04 17:05:57 by dolewski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char				*str_toupper(char *str)
+int				ft_strcmp(const char *s1, const char *s2)
 {
-	char				*ret;
-	int					i;
+	const unsigned char		*s_one;
+	const unsigned char		*s_two;
 
-	ret = ft_strnew(ft_strlen(str));
-	i = 0;
-	while (str[i])
+	s_one = (const unsigned char*)s1;
+	s_two = (const unsigned char*)s2;
+	while (*s_one == *s_two && *s_one != '\0')
 	{
-		ret[i] = ft_toupper(str[i]);
-		i++;
+		s_one++;
+		s_two++;
 	}
-	return (ret);
+	return (*s_one - *s_two);
 }

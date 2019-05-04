@@ -1,6 +1,7 @@
 #include "ft_ssl.h"
 #include "ft_md5.h"
 #include "libft.h"
+#include "ft_printf.h"
 
 char			*md5_opt(t_md5sha *md5, int ac, char **av)
 {
@@ -56,16 +57,16 @@ void			md5_exec(t_md5sha *md5, char *msg, size_t len, bool file)
 	if (msg == NULL)
 		return ;
 	if (md5->opt.reverse == false && md5->opt.quiet == false && file)
-		printf("MD5 (%s) = ", md5->av[md5->index_file]);
+		ft_printf("MD5 (%s) = ", md5->av[md5->index_file]);
 	if (md5->opt.reverse == false && md5->opt.quiet == false && !file)
-		printf("MD5 (\"%s\") = ", msg);
+		ft_printf("MD5 (\"%s\") = ", msg);
 	ft_md5_body(md5, msg, len);
 	ft_md5_print_hash(md5);
 	if (md5->opt.reverse && md5->opt.quiet == false && file)
-		printf("  %s", md5->av[md5->index_file]);
+		ft_printf("  %s", md5->av[md5->index_file]);
 	else if (md5->opt.reverse && md5->opt.quiet == false && !file)
-		printf(" \"%s\"", msg);
-	printf("\n");
+		ft_printf(" \"%s\"", msg);
+	ft_printf("\n");
 	ft_strdel(&msg);
 	md5_reset_parts(md5);
 }
@@ -82,10 +83,10 @@ int				ft_md5(int ac, char **av)
 	{
 		read_fd(0, &file);
 		if (md5.opt.in)
-			printf("%s", file.content);
+			ft_printf("%s", file.content);
 		ft_md5_body(&md5, file.content, file.len);
 		ft_md5_print_hash(&md5);
-		printf("\n");
+		ft_printf("\n");
 		md5_reset_parts(&md5);
 	}
 	if (md5.opt.string)

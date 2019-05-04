@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_toupper.c                                      :+:      :+:    :+:   */
+/*   print_all.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dolewski <dolewski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 17:06:57 by dolewski          #+#    #+#             */
-/*   Updated: 2019/05/04 17:06:59 by dolewski         ###   ########.fr       */
+/*   Created: 2019/05/04 17:05:59 by dolewski          #+#    #+#             */
+/*   Updated: 2019/05/04 17:05:59 by dolewski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char				*str_toupper(char *str)
+int			print_all(t_lst *lst, va_list ap)
 {
-	char				*ret;
-	int					i;
+	t_lst		*tmp;
+	int			len;
+	int			tmp_len;
 
-	ret = ft_strnew(ft_strlen(str));
-	i = 0;
-	while (str[i])
+	tmp = lst;
+	len = 0;
+	while (tmp)
 	{
-		ret[i] = ft_toupper(str[i]);
-		i++;
+		if ((tmp_len = conversion_manager(tmp, ap)) < 0)
+			return (tmp_len);
+		len += tmp_len;
+		tmp = tmp->next;
 	}
-	return (ret);
+	return (len);
 }

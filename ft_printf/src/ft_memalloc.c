@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_toupper.c                                      :+:      :+:    :+:   */
+/*   ft_memalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dolewski <dolewski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 17:06:57 by dolewski          #+#    #+#             */
-/*   Updated: 2019/05/04 17:06:59 by dolewski         ###   ########.fr       */
+/*   Created: 2019/05/04 17:05:54 by dolewski          #+#    #+#             */
+/*   Updated: 2019/05/04 17:05:54 by dolewski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
+#include "ft_printf.h"
 
-char				*str_toupper(char *str)
+void	*ft_memalloc(size_t size)
 {
-	char				*ret;
-	int					i;
+	void	*tmp;
 
-	ret = ft_strnew(ft_strlen(str));
-	i = 0;
-	while (str[i])
+	if (size != 0)
 	{
-		ret[i] = ft_toupper(str[i]);
-		i++;
+		tmp = malloc(size);
+		if (tmp != NULL)
+			ft_bzero(tmp, size);
+		return (tmp);
 	}
-	return (ret);
+	return (NULL);
 }
