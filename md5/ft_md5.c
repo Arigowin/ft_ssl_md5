@@ -3,37 +3,6 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-char			*md5_opt(t_md5sha *md5, int ac, char **av)
-{
-	char		*tmp;
-	int			i;
-
-	i = 1;
-	tmp = NULL;
-	while (++i < ac)
-	{
-		if (!md5->opt.file && ft_strequ(av[i], "-p"))
-			md5->opt.in = true;
-		else if (!md5->opt.file && ft_strequ(av[i], "-q"))
-			md5->opt.quiet = true;
-		else if (!md5->opt.file && ft_strequ(av[i], "-r"))
-			md5->opt.reverse = true;
-		else if (!md5->opt.file && ft_strequ(av[i], "-s"))
-		{
-			md5->opt.string = true;
-			tmp = ft_strdup(av[++i]);
-		}
-		else
-		{
-			md5->opt.file = true;
-			md5->index_file = i;
-			md5->av = av;
-			break ;
-		}
-	}
-	return (tmp);
-}
-
 void			md5_reset_parts(t_md5sha *md5)
 {
 	md5->parts.a = INIT_MD5_A;
@@ -71,6 +40,19 @@ void			md5_exec(t_md5sha *md5, char *msg, size_t len, bool file)
 	md5_reset_parts(md5);
 }
 
+void			ft_md5_file(t_md5sha *md5)
+{
+	t_file		file;
+
+	read_fd(0, &file);
+	if (md5->opt.in)
+		ft_printf("%s", file.content);
+	ft_md5_body(md5, file.content, file.len);
+	ft_md5_print_hash(md5);
+	ft_printf("\n");
+	md5_reset_parts(md5);
+}
+
 int				ft_md5(int ac, char **av)
 {
 	t_md5sha	md5;
@@ -80,15 +62,7 @@ int				ft_md5(int ac, char **av)
 	md5_init(&md5);
 	msg = md5_opt(&md5, ac, av);
 	if ((!md5.opt.string && !md5.opt.file) || md5.opt.in)
-	{
-		read_fd(0, &file);
-		if (md5.opt.in)
-			ft_printf("%s", file.content);
-		ft_md5_body(&md5, file.content, file.len);
-		ft_md5_print_hash(&md5);
-		ft_printf("\n");
-		md5_reset_parts(&md5);
-	}
+		ft_md5_file(&md5);
 	if (md5.opt.string)
 		md5_exec(&md5, msg, ft_strlen(msg), false);
 	if (md5.opt.file)

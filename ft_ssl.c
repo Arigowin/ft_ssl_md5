@@ -14,10 +14,10 @@ void		usage(char *str)
 	ft_printf("\nCipher commands:\n");
 }
 
-int main(int ac, char **av)
+int			main(int ac, char **av)
 {
-	char		*authorized_cmd[2] = {"MD5", "SHA256"};
-	int			(*fct[2])(int, char **) = {ft_md5, ft_sha256,};
+	static char	*authorized_cmd[2] = {"MD5", "SHA256"};
+	static int	(*fct[2])(int, char **) = {ft_md5, ft_sha256};
 	int			i;
 
 	if (ac < 2)
@@ -35,4 +35,3 @@ int main(int ac, char **av)
 	usage(av[1]);
 	return (1);
 }
-

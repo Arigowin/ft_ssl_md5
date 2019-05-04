@@ -10,6 +10,8 @@
 
 int				get_md5_s(int i);
 int				get_md5_k(int i);
+char			*md5_opt(t_md5sha *md5, int ac, char **av);
+int				md5_padding(uint8_t **msg, char *imsg, size_t ilen);
 
 int				ft_md5(int ac, char **av);
 void			ft_md5_body(t_md5sha *md5, char *imsg, size_t ilen);

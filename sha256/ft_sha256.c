@@ -2,37 +2,6 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-char			*sha256_opt(t_md5sha *sha256, int ac, char **av)
-{
-	char		*tmp;
-	int			i;
-
-	i = 1;
-	tmp = NULL;
-	while (++i < ac)
-	{
-		if (!sha256->opt.file && ft_strequ(av[i], "-p"))
-			sha256->opt.in = true;
-		else if (!sha256->opt.file && ft_strequ(av[i], "-q"))
-			sha256->opt.quiet = true;
-		else if (!sha256->opt.file && ft_strequ(av[i], "-r"))
-			sha256->opt.reverse = true;
-		else if (!sha256->opt.file && ft_strequ(av[i], "-s"))
-		{
-			sha256->opt.string = true;
-			tmp = ft_strdup(av[++i]);
-		}
-		else
-		{
-			sha256->opt.file = true;
-			sha256->index_file = i;
-			sha256->av = av;
-			break ;
-		}
-	}
-	return (tmp);
-}
-
 void			sha256_reset_parts(t_md5sha *sha256)
 {
 	sha256->parts.a = INIT_SHA256_A;
@@ -74,7 +43,20 @@ void			sha256_exec(t_md5sha *sha256, char *msg, size_t len, bool file)
 	sha256_reset_parts(sha256);
 }
 
-int			ft_sha256(int ac, char **av)
+void			ft_sha256_file(t_md5sha *sha256)
+{
+	t_file		file;
+
+	read_fd(0, &file);
+	if (sha256->opt.in)
+		ft_printf("%s", file.content);
+	ft_sha256_body(sha256, file.content, file.len);
+	ft_sha256_print_hash(sha256);
+	ft_printf("\n");
+	sha256_reset_parts(sha256);
+}
+
+int				ft_sha256(int ac, char **av)
 {
 	t_md5sha	sha256;
 	t_file		file;
@@ -84,13 +66,7 @@ int			ft_sha256(int ac, char **av)
 	msg = sha256_opt(&sha256, ac, av);
 	if ((!sha256.opt.string && !sha256.opt.file) || sha256.opt.in)
 	{
-		read_fd(0, &file);
-		if (sha256.opt.in)
-			ft_printf("%s", file.content);
-		ft_sha256_body(&sha256, file.content, file.len);
-		ft_sha256_print_hash(&sha256);
-		ft_printf("\n");
-		sha256_reset_parts(&sha256);
+		ft_sha256_file(&sha256);
 	}
 	if (sha256.opt.string)
 		sha256_exec(&sha256, msg, ft_strlen(msg), false);

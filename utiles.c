@@ -8,7 +8,7 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-uint32_t			swap_int32(const uint32_t value)
+uint32_t		swap_int32(const uint32_t value)
 {
 	uint32_t result;
 
@@ -20,8 +20,7 @@ uint32_t			swap_int32(const uint32_t value)
 	return (result);
 }
 
-
-int			ft_isfile(char *name)
+int				ft_isfile(char *name)
 {
 	DIR *directory;
 
@@ -34,7 +33,7 @@ int			ft_isfile(char *name)
 	return (1);
 }
 
-char	*read_fd(int fd, t_file *file)
+char			*read_fd(int fd, t_file *file)
 {
 	int		rd;
 	char	*buff;
@@ -59,7 +58,7 @@ char	*read_fd(int fd, t_file *file)
 	return (file->content);
 }
 
-char	*read_file(char	*filename, t_file *file)
+char			*read_file(char *filename, t_file *file)
 {
 	int		fd;
 	char	*ret;
