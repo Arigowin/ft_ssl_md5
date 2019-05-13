@@ -69,8 +69,8 @@ int				ft_md5(int ac, char **av)
 	{
 		while (md5.index_file < ac)
 		{
-			read_file(md5.av[md5.index_file], &file);
-			md5_exec(&md5, file.content, file.len, true);
+			if (read_file(md5.av[md5.index_file], &file) != NULL)
+				md5_exec(&md5, file.content, file.len, true);
 			md5.index_file++;
 		}
 	}
