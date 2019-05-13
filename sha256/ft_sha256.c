@@ -74,8 +74,8 @@ int				ft_sha256(int ac, char **av)
 	{
 		while (sha256.index_file < ac)
 		{
-			read_file(sha256.av[sha256.index_file], &file);
-			sha256_exec(&sha256, file.content, file.len, true);
+			if (read_file(sha256.av[sha256.index_file], &file) != NULL)
+				sha256_exec(&sha256, file.content, file.len, true);
 			sha256.index_file++;
 		}
 	}
