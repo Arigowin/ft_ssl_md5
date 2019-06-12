@@ -6,39 +6,47 @@
 #include "ft_printf.h"
 #include "get_next_line.h"
 
-void		usage(char *str)
+static t_algo	g_algo[3] = {
+	{"md5", "MD5", ft_md5},
+	{"sha256", "SHA256", ft_sha256},
+	{NULL, NULL, NULL}
+};
+
+int			usage1(void)
+{
+	ft_printf("usage: ft_ssl command [command opts] [command args]\n");
+	return (1);
+}
+
+int			usage2(char *str)
 {
 	ft_printf("ft_ssl: Error: '%s' is an invalid command.\n", str);
 	ft_printf("\nStandard commands:\n");
 	ft_printf("\nMessage Digest commands:\n");
 	ft_printf("md5\nsha256\n");
 	ft_printf("\nCipher commands:\n");
+	return (1);
 }
 
 int			main(int ac, char **av)
 {
-	static char	*authorized_cmd[2] = {"MD5", "SHA256"};
-	static int	(*fct[2])(int, char **) = {ft_md5, ft_sha256};
-	char		*tmp;
+	t_opt		opt;
+	int			ret;
 	int			i;
 
 	if (ac < 2)
+		return (usage1());
+	i = -1;
+	while (++i < 2)
 	{
-		ft_printf("usage: ft_ssl command [command opts] [command args]\n");
-		return (1);
-	}
-	i = 0;
-	while (i < 2)
-	{
-		tmp = str_toupper(av[1]);
-		if (ft_strequ(tmp, authorized_cmd[i]))
+		if (ft_strequ(av[1], g_algo[i].name)
+				|| ft_strequ(av[1], g_algo[i].full_name))
 		{
-			free(tmp);
-			return (fct[i](ac, av));
+			opt = get_opt(ac, av);
+			ret = g_algo[i].algo(&opt, ac);
+			free_opt(&opt);
+			return (ret);
 		}
-		free(tmp);
-		i++;
 	}
-	usage(av[1]);
-	return (1);
+	return (usage2(av[1]));
 }

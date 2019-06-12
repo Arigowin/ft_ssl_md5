@@ -22,7 +22,7 @@ LIBS = -L $(LIBPATH) -lft -L$(LIBPRINTFPATH) -lftprintf
 _DEPS = ft_ssl.h ft_md5.h ft_sha256.h
 DEPS = $(patsubst %,$(HPATH)/%,$(_DEPS))
 
-SRC = ft_ssl.c utiles.c
+SRC = ft_ssl.c utiles.c opt.c opt_more.c
 MD5_SRC = ft_md5_print.c ft_md5_global.c ft_md5_body.c ft_md5_more.c ft_md5.c
 SHA256_SRC = ft_sha256_print.c ft_sha256_global.c ft_sha256_body.c ft_sha256_more.c ft_sha256.c
 

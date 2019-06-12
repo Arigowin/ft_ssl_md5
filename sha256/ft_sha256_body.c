@@ -40,33 +40,33 @@ void			sha256_swap(uint32_t *parts, uint32_t *w, int i)
 	parts[0] = t1 + t2;
 }
 
-void			sha256_algo(t_md5sha *sha256, uint32_t *w)
+void			sha256_algo(t_mdsha *sha256, uint32_t *w)
 {
 	uint32_t	parts[8];
 	int			i;
 
-	parts[0] = sha256->parts.a;
-	parts[1] = sha256->parts.b;
-	parts[2] = sha256->parts.c;
-	parts[3] = sha256->parts.d;
-	parts[4] = sha256->parts.e;
-	parts[5] = sha256->parts.f;
-	parts[6] = sha256->parts.g;
-	parts[7] = sha256->parts.h;
+	parts[0] = sha256->parts[0];
+	parts[1] = sha256->parts[1];
+	parts[2] = sha256->parts[2];
+	parts[3] = sha256->parts[3];
+	parts[4] = sha256->parts[4];
+	parts[5] = sha256->parts[5];
+	parts[6] = sha256->parts[6];
+	parts[7] = sha256->parts[7];
 	i = -1;
 	while (++i < 64)
 		sha256_swap(parts, w, i);
-	sha256->parts.a += parts[0];
-	sha256->parts.b += parts[1];
-	sha256->parts.c += parts[2];
-	sha256->parts.d += parts[3];
-	sha256->parts.e += parts[4];
-	sha256->parts.f += parts[5];
-	sha256->parts.g += parts[6];
-	sha256->parts.h += parts[7];
+	sha256->parts[0] += parts[0];
+	sha256->parts[1] += parts[1];
+	sha256->parts[2] += parts[2];
+	sha256->parts[3] += parts[3];
+	sha256->parts[4] += parts[4];
+	sha256->parts[5] += parts[5];
+	sha256->parts[6] += parts[6];
+	sha256->parts[7] += parts[7];
 }
 
-void			ft_sha256_body(t_md5sha *sha256, char *imsg, size_t ilen)
+void			ft_sha256_body(t_mdsha *sha256, char *imsg, size_t ilen)
 {
 	uint32_t	new_len;
 	uint32_t	block;

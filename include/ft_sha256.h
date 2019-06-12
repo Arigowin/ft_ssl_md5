@@ -13,11 +13,10 @@
 # define INIT_SHA256_H 0x5be0cd19;
 
 uint32_t		get_sha256_k(int i);
-char			*sha256_opt(t_md5sha *sha256, int ac, char **av);
 int				sha256_padding(uint32_t **msg, char *imsg, size_t ilen);
 
-int				ft_sha256(int ac, char **av);
-void			ft_sha256_body(t_md5sha *sha256, char *imsg, size_t ilen);
-void			ft_sha256_print_hash(t_md5sha *sha256);
+int				ft_sha256(t_opt *opt, int ac);
+void			ft_sha256_body(t_mdsha *sha256, char *imsg, size_t ilen);
+void			ft_sha256_print_hash(t_mdsha *sha256);
 
 #endif

@@ -1,42 +1,6 @@
 #include "ft_md5.h"
 #include "libft.h"
 
-void			md5_opt2(t_md5sha *md5, char **av, int i)
-{
-	md5->opt.file = true;
-	md5->index_file = i;
-	md5->av = av;
-}
-
-char			*md5_opt(t_md5sha *md5, int ac, char **av)
-{
-	char		*tmp;
-	int			i;
-
-	i = 1;
-	tmp = NULL;
-	while (++i < ac)
-	{
-		if (!md5->opt.file && ft_strequ(av[i], "-p"))
-			md5->opt.in = true;
-		else if (!md5->opt.file && ft_strequ(av[i], "-q"))
-			md5->opt.quiet = true;
-		else if (!md5->opt.file && ft_strequ(av[i], "-r"))
-			md5->opt.reverse = true;
-		else if (!md5->opt.file && ft_strequ(av[i], "-s"))
-		{
-			md5->opt.string = true;
-			tmp = ft_strdup(av[++i]);
-		}
-		else
-		{
-			md5_opt2(md5, av, i);
-			break ;
-		}
-	}
-	return (tmp);
-}
-
 int				md5_padding(uint8_t **msg, char *imsg, size_t ilen)
 {
 	int			new_len;

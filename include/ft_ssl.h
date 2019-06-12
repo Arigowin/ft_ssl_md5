@@ -8,43 +8,45 @@
 # define LR(x, c) ((x << c) | (x >> (32 - c)))
 # define RR(x, c) ((x >> c) | (x << (32 - c)))
 
-typedef struct			s_md5sha_opt
+typedef struct			s_msg
+{
+	char				*content;
+	size_t				len;
+	struct s_msg		*next;;
+}						t_msg;
+
+typedef struct			s_opt
 {
 	bool				in;
 	bool				quiet;
 	bool				reverse;
 	bool				string;
+	t_msg				*msg;
 	bool				file;
-}						t_md5sha_opt;
-
-typedef struct			s_md5sha_parts
-{
-	uint32_t			a;
-	uint32_t			b;
-	uint32_t			c;
-	uint32_t			d;
-	uint32_t			e;
-	uint32_t			f;
-	uint32_t			g;
-	uint32_t			h;
-}						t_md5sha_parts;
-
-typedef struct			s_md5sha
-{
-	t_md5sha_opt		opt;
-	t_md5sha_parts		parts;
 	int					index_file;
 	char				**av;
-}						t_md5sha;
+}						t_opt;
 
-typedef struct			s_file
+typedef struct			s_mdsha
 {
-	char				*content;
-	size_t				len;
-}						t_file;
+	t_opt				*opt;
+	uint32_t			parts[8];
+}						t_mdsha;
+
+typedef struct			s_algo
+{
+	char				*name;
+	char				*full_name;
+	int					(*algo)(t_opt *, int);
+}						t_algo;
 
 uint32_t				swap_int32(const uint32_t value);
-char					*read_fd(int fd, t_file *file);
-char					*read_file(char	*filename, t_file *file);
+char					*read_fd(int fd, t_msg *file);
+char					*read_file(char	*filename, t_msg *file);
+t_opt					get_opt(int ac, char **av);
+void					free_opt(t_opt *opt);
+void					add_msg(t_opt *opt, char *msg);
+void					opt_more(t_opt *opt, char **av, int i);
+void					opt_s(t_opt *opt, char **av, int *i, size_t j);
 
 #endif

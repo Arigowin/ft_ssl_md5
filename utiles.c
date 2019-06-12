@@ -3,7 +3,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <dirent.h>
 #include "ft_ssl.h"
 #include "libft.h"
 #include "ft_printf.h"
@@ -20,20 +19,7 @@ uint32_t		swap_int32(const uint32_t value)
 	return (result);
 }
 
-int				ft_isfile(char *name)
-{
-	DIR *directory;
-
-	directory = opendir(name);
-	if (directory != NULL)
-	{
-		closedir(directory);
-		return (0);
-	}
-	return (1);
-}
-
-char			*read_fd(int fd, t_file *file)
+char			*read_fd(int fd, t_msg *file)
 {
 	int		rd;
 	char	*buff;
@@ -58,19 +44,20 @@ char			*read_fd(int fd, t_file *file)
 	return (file->content);
 }
 
-char			*read_file(char *filename, t_file *file)
+char			*read_file(char *filename, t_msg *file)
 {
-	int		fd;
-	char	*ret;
+	struct stat	buf;
+	int			fd;
+	char		*ret;
 
-	if (!ft_isfile(filename))
-	{
-		ft_printf("ft_ssl: %s: Is a directory\n", filename);
-		return (NULL);
-	}
 	if ((fd = open(filename, O_RDONLY)) < 0)
 	{
-		ft_printf("ft_ssl: %s: no such file or directory\n", filename);
+		ft_printf("ft_ssl: %s: No such file or directory\n", filename);
+		return (NULL);
+	}
+	if (fstat(fd, &buf) == 0 && S_ISDIR(buf.st_mode))
+	{
+		ft_printf("ft_ssl: %s: Is a directory\n", filename);
 		return (NULL);
 	}
 	ret = read_fd(fd, file);

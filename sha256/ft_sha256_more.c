@@ -1,42 +1,6 @@
 #include "ft_sha256.h"
 #include "libft.h"
 
-void			sha256_opt2(t_md5sha *sha256, char **av, int i)
-{
-	sha256->opt.file = true;
-	sha256->index_file = i;
-	sha256->av = av;
-}
-
-char			*sha256_opt(t_md5sha *sha256, int ac, char **av)
-{
-	char		*tmp;
-	int			i;
-
-	i = 1;
-	tmp = NULL;
-	while (++i < ac)
-	{
-		if (!sha256->opt.file && ft_strequ(av[i], "-p"))
-			sha256->opt.in = true;
-		else if (!sha256->opt.file && ft_strequ(av[i], "-q"))
-			sha256->opt.quiet = true;
-		else if (!sha256->opt.file && ft_strequ(av[i], "-r"))
-			sha256->opt.reverse = true;
-		else if (!sha256->opt.file && ft_strequ(av[i], "-s"))
-		{
-			sha256->opt.string = true;
-			tmp = ft_strdup(av[++i]);
-		}
-		else
-		{
-			sha256_opt2(sha256, av, i);
-			break ;
-		}
-	}
-	return (tmp);
-}
-
 int				add_padlen(uint32_t *buff, int ilen)
 {
 	size_t			size;

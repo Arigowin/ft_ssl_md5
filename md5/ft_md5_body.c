@@ -38,28 +38,28 @@ uint32_t		get_g(uint32_t i)
 	return (g);
 }
 
-void			md5_algo(t_md5sha *md5, uint32_t *w)
+void			md5_algo(t_mdsha *md5, uint32_t *w)
 {
 	uint32_t	p[4];
 	uint32_t	i;
 
-	p[0] = md5->parts.a;
-	p[1] = md5->parts.b;
-	p[2] = md5->parts.c;
-	p[3] = md5->parts.d;
+	p[0] = md5->parts[0];
+	p[1] = md5->parts[1];
+	p[2] = md5->parts[2];
+	p[3] = md5->parts[3];
 	i = -1;
 	while (++i < 64)
 	{
 		md5_swap(p, LR((p[0] + get_f(p, i) + get_md5_k(i) + w[get_g(i)]),
 					get_md5_s(i)));
 	}
-	md5->parts.a += p[0];
-	md5->parts.b += p[1];
-	md5->parts.c += p[2];
-	md5->parts.d += p[3];
+	md5->parts[0] += p[0];
+	md5->parts[1] += p[1];
+	md5->parts[2] += p[2];
+	md5->parts[3] += p[3];
 }
 
-void			ft_md5_body(t_md5sha *md5, char *imsg, size_t ilen)
+void			ft_md5_body(t_mdsha *md5, char *imsg, size_t ilen)
 {
 	int			new_len;
 	int			block;

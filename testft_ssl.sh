@@ -171,7 +171,7 @@ _check_hash()
 	if ! [ "${OR}" = "${OM}" ]; then
 		RET=1
 		compt_reset
-		printf "Failed on : %s\\n" "${INPUT}"
+		printf "Failed on : %s\\n" "${INPUT}" "${REAL_CMD}" "${MINE_CMD}"
 		echo "${OR}"
 		echo "${OM}"
 	else
