@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "ft_sha256.h"
 #include "libft.h"
 #include "ft_printf.h"
@@ -51,6 +52,7 @@ void			ft_sha256_file(t_md5sha *sha256)
 	if (sha256->opt.in)
 		ft_printf("%s", file.content);
 	ft_sha256_body(sha256, file.content, file.len);
+	free(file.content);
 	ft_sha256_print_hash(sha256);
 	ft_printf("\n");
 	sha256_reset_parts(sha256);
@@ -76,6 +78,7 @@ int				ft_sha256(int ac, char **av)
 		{
 			if (read_file(sha256.av[sha256.index_file], &file) != NULL)
 				sha256_exec(&sha256, file.content, file.len, true);
+			free(file.content);
 			sha256.index_file++;
 		}
 	}

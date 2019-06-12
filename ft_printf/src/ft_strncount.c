@@ -5,11 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dolewski <dolewski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 17:05:58 by dolewski          #+#    #+#             */
-/*   Updated: 2019/05/04 17:05:58 by dolewski         ###   ########.fr       */
+/*   Created: 2019/06/12 09:00:11 by dolewski          #+#    #+#             */
+/*   Updated: 2019/06/12 09:00:11 by dolewski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <libft.h>
 #include "printf.h"
 
 int					ft_strncount(char *str, char c)

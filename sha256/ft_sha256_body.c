@@ -88,6 +88,7 @@ void			ft_sha256_body(t_md5sha *sha256, char *imsg, size_t ilen)
 			ft_printf("ft_ssl: sha256: Allocation failes\n");
 		}
 		sha256_algo(sha256, w);
+		free(w);
 		block++;
 	}
 	free(msg);

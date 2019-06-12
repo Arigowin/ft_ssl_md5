@@ -5,12 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dolewski <dolewski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 17:05:50 by dolewski          #+#    #+#             */
-/*   Updated: 2019/05/04 17:05:50 by dolewski         ###   ########.fr       */
+/*   Created: 2019/06/12 09:00:07 by dolewski          #+#    #+#             */
+/*   Updated: 2019/06/12 09:00:07 by dolewski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <libft.h>
 #include "ft_printf.h"
 
 t_lst		*lst_add(t_lst **lst, t_type type, char *str)

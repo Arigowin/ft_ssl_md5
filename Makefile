@@ -47,7 +47,6 @@ $(NAME): $(OBJ)
 	@$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 	@echo "\033[36mAll is done!\033[0m"
 
-
 sha256: $(SHA256_OBJ)
 	$(CC) -o ft_ssl_$@ $^ $(CFLAGS) $(LIBS)
 

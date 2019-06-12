@@ -5,14 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dolewski <dolewski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 17:05:54 by dolewski          #+#    #+#             */
-/*   Updated: 2019/05/04 17:05:54 by dolewski         ###   ########.fr       */
+/*   Created: 2019/06/12 09:00:10 by dolewski          #+#    #+#             */
+/*   Updated: 2019/06/12 09:00:10 by dolewski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <libft.h>
 #include "ft_printf.h"
 
-size_t		ft_nbrlen(int nb)
+size_t		ft_nbrlen(long long int nb)
 {
 	char	*tmp;
 	int		len;

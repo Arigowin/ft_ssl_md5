@@ -5,11 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dolewski <dolewski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 17:05:58 by dolewski          #+#    #+#             */
-/*   Updated: 2019/05/04 17:05:58 by dolewski         ###   ########.fr       */
+/*   Created: 2019/06/12 09:00:11 by dolewski          #+#    #+#             */
+/*   Updated: 2019/06/12 09:00:11 by dolewski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <libft.h>
 #include "ft_printf.h"
 
 void		remove_char(char **str, char *s2)
@@ -73,11 +74,7 @@ int			other_conv(t_lst *lst, va_list ap)
 	if (ft_strchr(lst->str, '%'))
 		return (-1);
 	(void)ap;
-	len = 1;
 	remove_char(&(lst->str), "#-+ lhL.0123456789");
-	ft_putchar('%');
-	len += print_flags(lst);
-	ft_putstr(lst->str);
-	len += ft_strlen(lst->str);
+	len = conv_s_body(lst, lst->str);
 	return (len);
 }

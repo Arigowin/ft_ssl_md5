@@ -5,11 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dolewski <dolewski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 17:05:51 by dolewski          #+#    #+#             */
-/*   Updated: 2019/05/04 17:05:51 by dolewski         ###   ########.fr       */
+/*   Created: 2019/06/12 09:00:08 by dolewski          #+#    #+#             */
+/*   Updated: 2019/06/12 09:00:08 by dolewski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <libft.h>
 #include "ft_printf.h"
 
 void			add_o2(char **str)

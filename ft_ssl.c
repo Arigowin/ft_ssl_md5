@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "ft_ssl.h"
 #include "ft_md5.h"
 #include "ft_sha256.h"
@@ -18,6 +19,7 @@ int			main(int ac, char **av)
 {
 	static char	*authorized_cmd[2] = {"MD5", "SHA256"};
 	static int	(*fct[2])(int, char **) = {ft_md5, ft_sha256};
+	char		*tmp;
 	int			i;
 
 	if (ac < 2)
@@ -28,8 +30,13 @@ int			main(int ac, char **av)
 	i = 0;
 	while (i < 2)
 	{
-		if (ft_strequ(str_toupper(av[1]), authorized_cmd[i]))
+		tmp = str_toupper(av[1]);
+		if (ft_strequ(tmp, authorized_cmd[i]))
+		{
+			free(tmp);
 			return (fct[i](ac, av));
+		}
+		free(tmp);
 		i++;
 	}
 	usage(av[1]);
