@@ -3,20 +3,30 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include "ft_ssl.h"
 #include "libft.h"
 #include "ft_printf.h"
+#include "ft_ssl.h"
 
-uint32_t		swap_int32(const uint32_t value)
+uint32_t swap32(uint32_t a)
 {
-	uint32_t result;
+  a = ((a & 0x000000FF) << 24) |
+      ((a & 0x0000FF00) <<  8) |
+      ((a & 0x00FF0000) >>  8) |
+      ((a & 0xFF000000) >> 24);
+  return a;
+}
 
-	result = 0;
-	result |= (value & 0x000000FF) << 24;
-	result |= (value & 0x0000FF00) << 8;
-	result |= (value & 0x00FF0000) >> 8;
-	result |= (value & 0xFF000000) >> 24;
-	return (result);
+uint64_t swap64(uint64_t a)
+{
+  a = ((a & 0x00000000000000FFULL) << 56) |
+      ((a & 0x000000000000FF00ULL) << 40) |
+      ((a & 0x0000000000FF0000ULL) << 24) |
+      ((a & 0x00000000FF000000ULL) <<  8) |
+      ((a & 0x000000FF00000000ULL) >>  8) |
+      ((a & 0x0000FF0000000000ULL) >> 24) |
+      ((a & 0x00FF000000000000ULL) >> 40) |
+      ((a & 0xFF00000000000000ULL) >> 56);
+  return a;
 }
 
 char			*read_fd(int fd, t_msg *file)

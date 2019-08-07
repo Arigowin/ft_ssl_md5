@@ -23,27 +23,28 @@ SRC = ft_ssl.c \
 	  utiles/opt.c \
 	  utiles/opt_more.c \
 	  utiles/utiles.c \
+	  utiles/ft_sslprint.c \
 	  \
 	  md5/ft_md5.c \
-	  md5/ft_md5_body.c \
-	  md5/ft_md5_global.c \
-	  md5/ft_md5_more.c \
-	  md5/ft_md5_print.c \
+	  md5/ft_md5final.c \
+	  md5/ft_md5init.c \
+	  md5/ft_md5transform.c \
+	  md5/ft_md5update.c \
 	  \
 	  sha256/ft_sha256.c \
-	  sha256/ft_sha256_body.c \
-	  sha256/ft_sha256_global.c \
-	  sha256/ft_sha256_more.c \
-	  sha256/ft_sha256_print.c
+	  sha256/ft_sha256final.c \
+	  sha256/ft_sha256init.c \
+	  sha256/ft_sha256transform.c \
+	  sha256/ft_sha256update.c
 
 SRCS = $(addprefix $(CPATH), $(SRC_ALL))
 
 OBJ = $(SRC:.c=.o)
-OBJS = $(addprefix $(OPATH), $(OBJ))
+	OBJS = $(addprefix $(OPATH), $(OBJ))
 
 INC = ft_ssl.h \
-	  ft_md5.h \
-	  ft_sha256.h
+	  struct.h \
+	  define.h
 
 INCS = $(addprefix $(HPATH), $(INC))
 

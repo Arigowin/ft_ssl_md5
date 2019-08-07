@@ -1,52 +1,35 @@
 #ifndef FT_SSL_H
 # define FT_SSL_H
 
-# include <stdbool.h>
-# include <stdint.h>
-# include <string.h>
+# include "struct.h"
+# include "define.h"
 
-# define LR(x, c) ((x << c) | (x >> (32 - c)))
-# define RR(x, c) ((x >> c) | (x << (32 - c)))
+/* ft_ssl */
+uint32_t	swap32(uint32_t a);
+uint64_t 	swap64(uint64_t a);
+char		*read_fd(int fd, t_msg *file);
+char		*read_file(char	*filename, t_msg *file);
+t_opt		get_opt(int ac, char **av);
+void		free_opt(t_opt *opt);
+void		add_msg(t_opt *opt, char *msg);
+void		opt_more(t_opt *opt, char **av, int i);
+void		opt_s(t_opt *opt, char **av, int *i, size_t j);
+void		ft_sslprint(uint8_t *digest, size_t len);
+void		ft_mdsha_print_beg(t_opt *opt, char *algo, char *msg, bool file);
+void		ft_mdsha_print_end(t_opt *opt, char *msg, bool file);
 
-typedef struct			s_msg
-{
-	char				*content;
-	size_t				len;
-	struct s_msg		*next;;
-}						t_msg;
+/* ft_md5 */
+int			ft_md5(int ac, char **av);
+void		ft_md5init(t_mdsha *md5);
+void		ft_md5update(t_mdsha *md5, const void *imsg, size_t len);
+void		ft_md5final(uint8_t digest[MD5_DIGEST_LENGTH], t_mdsha *md5);
+void		md5transform(uint32_t iparts[4], const uint8_t block[MD5_BLOCK_LENGTH]);
 
-typedef struct			s_opt
-{
-	bool				in;
-	bool				quiet;
-	bool				reverse;
-	bool				string;
-	t_msg				*msg;
-	bool				file;
-	int					index_file;
-	char				**av;
-}						t_opt;
-
-typedef struct			s_mdsha
-{
-	t_opt				*opt;
-	uint32_t			parts[8];
-}						t_mdsha;
-
-typedef struct			s_algo
-{
-	char				*name;
-	char				*full_name;
-	int					(*algo)(t_opt *, int);
-}						t_algo;
-
-uint32_t				swap_int32(const uint32_t value);
-char					*read_fd(int fd, t_msg *file);
-char					*read_file(char	*filename, t_msg *file);
-t_opt					get_opt(int ac, char **av);
-void					free_opt(t_opt *opt);
-void					add_msg(t_opt *opt, char *msg);
-void					opt_more(t_opt *opt, char **av, int i);
-void					opt_s(t_opt *opt, char **av, int *i, size_t j);
+/* ft_sha256 */
+int			ft_sha256(int ac, char **av);
+void		ft_sha256init(t_mdsha *sha256);
+void		ft_sha256update(t_mdsha *sha256, const void *imsg, size_t ilen);
+void		ft_sha256final(uint8_t digest[SHA256_DIGEST_LENGTH], t_mdsha *sh);
+void		sha256transform(uint32_t *iparts, const uint8_t *data);
 
 #endif

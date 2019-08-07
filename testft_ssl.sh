@@ -21,7 +21,7 @@
 
 MD5_META="openssl md5,./ft_ssl md5"
 MD4_META="openssl md4,./ft_ssl md4"
-SHA256_META="openssl sha -sha256,./ft_ssl sha256"
+SHA256_META="openssl sha256,./ft_ssl sha256"
 SHA1_META="openssl sha -sha1,./ft_ssl sha1"
 SHA224_META="openssl sha -sha224,./ft_ssl sha224"
 SHA384_META="openssl sha -sha384,./ft_ssl sha384"

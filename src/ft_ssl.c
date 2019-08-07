@@ -1,7 +1,5 @@
 #include <stdlib.h>
 #include "ft_ssl.h"
-#include "ft_md5.h"
-#include "ft_sha256.h"
 #include "libft.h"
 #include "ft_printf.h"
 #include "get_next_line.h"
@@ -30,7 +28,6 @@ int			usage2(char *str)
 
 int			main(int ac, char **av)
 {
-	t_opt		opt;
 	int			ret;
 	int			i;
 
@@ -42,9 +39,7 @@ int			main(int ac, char **av)
 		if (ft_strequ(av[1], g_algo[i].name)
 				|| ft_strequ(av[1], g_algo[i].full_name))
 		{
-			opt = get_opt(ac, av);
-			ret = g_algo[i].algo(&opt, ac);
-			free_opt(&opt);
+			ret = g_algo[i].algo(ac, av);
 			return (ret);
 		}
 	}
